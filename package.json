@@ -1,0 +1,11 @@
+{
+  "name": "dsa_problems",
+  "version": "1.0.0",
+  "description": "Solutions to DSA problems with explanations",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Nick Huemmer",
+  "license": "MIT"
+}
