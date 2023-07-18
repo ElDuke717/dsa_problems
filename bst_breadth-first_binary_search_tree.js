@@ -26,27 +26,27 @@ c.right = f;
 //  / \     \
 // d   e     f
 
-// Think: breadth first traversal uses a queue, whereas a depth first traversal uses a stack
+// Think: breadth first traversal uses a queue, whereas a depth first traversal uses a queue
 
 const breadthFirstValues = (root) => {
   // edge case: if the root is null, return an empty array
   if (root === null) return [];
   // use breadth first traversal to get all values of the tree
   const values = [];
-  // use a stack to hold the nodes - we'll traverse differently
-  const stack = [root];
+  // use a queue to hold the nodes - we'll traverse differently
+  const queue = [root];
   // iterate through the tree with a while loop, pushing values at each level
-  while (stack.length > 0) {
-    // shift off the first node, in this case we use a queue instead of a stack
-    const current = stack.shift();
+  while (queue.length > 0) {
+    // shift off the first node, in this case we use a queue instead of a queue
+    const current = queue.shift();
     // push the value of current to the values array
     values.push(current.val);
-    // if there's a left or right value, push it onto the stack
+    // if there's a left or right value, push it onto the queue
     if (current.left) {
-      stack.push(current.left);
+      queue.push(current.left);
     }
     if (current.right) {
-      stack.push(current.right);
+      queue.push(current.right);
     }
   }
   return values;
