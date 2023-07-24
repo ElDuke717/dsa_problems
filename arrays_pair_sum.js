@@ -24,9 +24,8 @@ const pairSum = (numbers, targetSum) => {
         // otherwise, add the number and it's index to cache
         cache[numbers[i]] = i;
     }
-    
     return indices;
-  };
+};
 
 
 console.log(pairSum([3, 2, 5, 4, 1], 8)); // -> [0, 2])
