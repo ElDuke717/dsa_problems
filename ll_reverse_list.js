@@ -45,7 +45,7 @@ const reverseList = (head) => {
   
       // Move to the next node
       prev = current;
-      current = next;
+      current = next; 
     }
   
     // The new head will be the last node we visited (prev)
