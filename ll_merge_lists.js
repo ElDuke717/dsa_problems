@@ -37,27 +37,124 @@ class Node {
   s.next = t;
   // 6 -> 8 -> 9 -> 25
 
-  // merge the lists head1 then head2 added to the end
-  // make a sorting alorithm for the nodes
+  // Make a helper function to merge lists together
+  // merge the lists head1 then head2 with merge algoritm
   // 
+  // make a sorting alorithm for the nodes - use a mergeSort algorithm
+  
   
   const mergeLists = (head1, head2) => {
-    // if there's no first list
-    if (!head1) {
-        return head2;
+    // Make a helper function to merge the lists
+        const merge = (list1, list2) => {
+        // if there's no first list
+        if (!list1) {
+            return list2;
+        }
+        // use while loop to find the end of the first linked list
+        let current = list1;
+        while (current.next) {
+            current = current.next;
+        }
+        //append second list to the first
+        current.next = list2;
+        // return the linked list
+        return list1;
+        }
+    let combined = merge(head1, head2);
+    // function to find the middle of the linked list
+    function findMiddle(head) {
+        let slow = head;
+        let fast = head;
+        let prev = null;
+      
+        while (fast && fast.next) {
+          prev = slow;
+          slow = slow.next;
+          fast = fast.next.next;
+        }
+      
+        // Disconnect the two halves
+        if (prev) {
+          prev.next = null;
+        }
+      // slow is now at the middle of the linked list
+        return slow;
+      }
+      // Merge sort for linked lists
+      function mergeSortLinkedList(head) {
+        if (!head || !head.next) {
+          return head;
+        }
     }
-    // use while loop to find the end of the first linked list
-    let current = head1;
-    while (current.next) {
-        current = current.next;
-    }
-    console.log(current)
-    //append second list to the first
-    current.next = head2;
-    console.log(current.next)
-    return head1
+    const middle = findMiddle(combined);
+    const left = mergeSortLinkedList(combined);
+    const right = mergeSortLinkedList(middle);
 
+    return merge(left, right);
   };
 
   console.log(mergeLists(a, q));
 
+
+/*
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+// Function to merge two sorted linked lists
+function mergeSortedLists(left, right) {
+  const dummy = new Node(0);
+  let tail = dummy;
+
+  while (left && right) {
+    if (left.val < right.val) {
+      tail.next = left;
+      left = left.next;
+    } else {
+      tail.next = right;
+      right = right.next;
+    }
+    tail = tail.next;
+  }
+
+  tail.next = left || right;
+  return dummy.next;
+}
+
+// Function to find the middle of the linked list
+function findMiddle(head) {
+  let slow = head;
+  let fast = head;
+  let prev = null;
+
+  while (fast && fast.next) {
+    prev = slow;
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  // Disconnect the two halves
+  if (prev) {
+    prev.next = null;
+  }
+
+  return slow;
+}
+
+// Merge Sort for linked lists
+function mergeSortLinkedList(head) {
+  if (!head || !head.next) {
+    return head;
+  }
+
+  const middle = findMiddle(head);
+  const left = mergeSortLinkedList(head);
+  const right = mergeSortLinkedList(middle);
+
+  return mergeSortedLists(left, right);
+}
+
+*/
