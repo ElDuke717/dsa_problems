@@ -15,7 +15,8 @@ class Node {
 
 /**
  * Function to determine if all the values in a linked list are the same
- * @param {*} head - the head node a linked list
+ * @param {Object|null} head - the head node a linked list
+ * @returns {boolean} - True if all values in the linked list are the same, false otherwise.
  */
 
 const isUnivalueList = (head) => {
@@ -33,7 +34,7 @@ const isUnivalueList = (head) => {
     current = current.next;
   }
   // if so, return true
-  return true;;
+  return true;
 };
 
 const a = new Node(7);
