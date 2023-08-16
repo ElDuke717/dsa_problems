@@ -18,36 +18,80 @@ Then, the reversed linked list format of this problem would appear as:
 
  */
 
-    class Node {
-        constructor(val) {
-          this.val = val;
-          this.next = null;
-        }
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+const addLists = (head1, head2) => {
+    // make a helper function to get the values from a linked list and make a number from them
+    const helper = (head) => {
+      let current = head;
+      let value = '';
+      while (current) {
+        value = value + current.val;
+        current = current.next;
       }
-      
-      const addLists = (head1, head2) => {
-        // todo
-      };
-      
+      return +value;
+    };
+    
+    // result is the sum of helper on both heads
+    const result = String(helper(head1) + helper(head2)).split('').map(Number);
+    
+    // use function to make linked list from the array
+    const createLinkedList = (values) => {
+      if (values.length === 0) return null;
+      let head = new Node(values[0]);
+      let current = head;
+      for (let i = 1; i < values.length; i += 1) {
+        current.next = new Node(values[i]);
+        current = current.next;
+      }
+      return head;
+    };
+    
+    return createLinkedList(result);
+  };
+  
 
 //   621
 // + 354
 // -----
 //   975
 
+// const a1 = new Node(1);
+// const a2 = new Node(2);
+// const a3 = new Node(6);
+// a1.next = a2;
+// a2.next = a3;
+// // 1 -> 2 -> 6
+
+// const b1 = new Node(4);
+// const b2 = new Node(5);
+// const b3 = new Node(3);
+// b1.next = b2;
+// b2.next = b3;
+// // 4 -> 5 -> 3
+
+// console.log(addLists(a1, b1));
+// // 5 -> 7 -> 9
+
+
 const a1 = new Node(1);
-const a2 = new Node(2);
-const a3 = new Node(6);
+const a2 = new Node(4);
+const a3 = new Node(5);
+const a4 = new Node(7);
 a1.next = a2;
 a2.next = a3;
-// 1 -> 2 -> 6
+a3.next = a4;
+// 1 -> 4 -> 5 -> 7
 
-const b1 = new Node(4);
-const b2 = new Node(5);
-const b3 = new Node(3);
+const b1 = new Node(2);
+const b2 = new Node(3);
 b1.next = b2;
-b2.next = b3;
-// 4 -> 5 -> 3
+// 2 -> 3 
 
 console.log(addLists(a1, b1));
-// 5 -> 7 -> 9
+// 3 -> 7 -> 5 -> 7
