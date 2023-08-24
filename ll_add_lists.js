@@ -24,48 +24,100 @@ class Node {
     this.next = null;
   }
 }
+// Recursive solution
+const addListsR = (head1, head2, carry = 0) => {
+  if (head1 === null && head2 === null && carry === 0) {
+    return null;
+  }
+  const val1 = head1 === null ? 0 : head1.val;
+  const val2 = head2 === null ? 0 : head2.val;
+  const sum = val1 + val2 + carry;
+  const nextCarry = sum > 9 ? 1 : 0;
+  const digit = sum % 10;
+  const resultNode = new Node(digit);
 
+  resultNode.next = addListsR(head1.next, head2.next);
+  return resultNode;
+};
 
+// Iterative solution
+const addLists = (head1, head2) => {
+  // Create a dummy head node to simplify building the result linked list.
+  const dummyHead = {};
+  // Initialize the tail pointer to the dummy head.
+  let tail = dummyHead;
+  // Initialize the carry to 0, and pointers for the input linked lists.
+  let carry = 0;
+  let current1 = head1;
+  let current2 = head2;
 
+  // Loop until one of the linked lists is exhausted and there's no carry left.
+  while (current1 !== null || current2 !== null || carry === 1) {
+    // Get the values from the current nodes (or 0 if null) and add the carry.
+    const val1 = current1 === null ? 0 : current1.val;
+    const val2 = current2 === null ? 0 : current2.val;
+    const sum = val1 + val2 + carry;
+    // Calculate the new carry (1 if sum is greater than 9, 0 otherwise).
+    carry = sum > 9 ? 1 : 0;
+    // Calculate the digit value to insert in the new linked list.
+    const digit = sum % 10;
 
+    // Create a new node with the calculated digit and append it to the result linked list.
+    tail.next = new Node(digit);
+    // Move the tail pointer to the newly created node.
+    tail = tail.next;
+
+    // Move the input pointers to the next nodes if they exist.
+    if (current1 !== null) current1 = current1.next;
+    if (current2 !== null) current2 = current2.next;
+  }
+
+  // If there's a carry left after the loop, add a new node with value 1.
+  if (carry === 1) {
+    tail.next = new Node(1);
+  }
+
+  // Return the next node of the dummy head, which is the start of the result linked list.
+  return dummyHead.next;
+};
 
 //   621
 // + 354
 // -----
 //   975
 
-const a1 = new Node(1);
-const a2 = new Node(2);
-const a3 = new Node(6);
-a1.next = a2;
-a2.next = a3;
-// 1 -> 2 -> 6
-
-const b1 = new Node(4);
-const b2 = new Node(5);
-const b3 = new Node(3);
-b1.next = b2;
-b2.next = b3;
-// 4 -> 5 -> 3
-
-console.log(addLists(a1, b1));
-// 5 -> 7 -> 9
-
 // const a1 = new Node(1);
-// const a2 = new Node(4);
-// const a3 = new Node(5);
-// const a4 = new Node(7);
+// const a2 = new Node(2);
+// const a3 = new Node(6);
 // a1.next = a2;
 // a2.next = a3;
-// a3.next = a4;
-// // 1 -> 4 -> 5 -> 7
+// // 1 -> 2 -> 6
 
-// const b1 = new Node(2);
-// const b2 = new Node(3);
+// const b1 = new Node(4);
+// const b2 = new Node(5);
+// const b3 = new Node(3);
 // b1.next = b2;
-// // 2 -> 3
+// b2.next = b3;
+// // 4 -> 5 -> 3
 
 // console.log(addLists(a1, b1));
+// // 5 -> 7 -> 9
+
+const a1 = new Node(1);
+const a2 = new Node(4);
+const a3 = new Node(5);
+const a4 = new Node(7);
+a1.next = a2;
+a2.next = a3;
+a3.next = a4;
+// 1 -> 4 -> 5 -> 7
+
+const b1 = new Node(2);
+const b2 = new Node(3);
+b1.next = b2;
+// 2 -> 3
+
+console.log(addLists(a1, b1));
 // 3 -> 7 -> 5 -> 7
 
 // const a1 = new Node(9);
@@ -80,8 +132,6 @@ console.log(addLists(a1, b1));
 
 // console.log(addLists(a1, b1));
 // 6 -> 8
-
-
 
 /*
 
