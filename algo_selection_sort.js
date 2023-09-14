@@ -21,7 +21,11 @@ const selectionSort = (arr) => {
 const unsortedArray = [4, 3, 5, 1];
 console.log(selectionSort(unsortedArray)); // Output should be [1, 3, 4, 5]
 
+// Time complexity is O(n^2) because of the nested loops.  One loop for maintaining the current position and the other for finding the minimum element.  That is as much as you can optimize it.
+
 /* Explanation
+
+
   Certainly, Nick! Understanding sorting algorithms like selection sort can be pretty crucial when you're diving deeper into computer science and programming.
 
 Here's a breakdown of how the corrected `selectionSort` function works:
