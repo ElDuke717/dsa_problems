@@ -99,4 +99,6 @@ This tries to form `15` with `[6, 2, 10, 19]`, which is not possible, so it retu
 
 The remaining `console.log` statements are further test cases for the `sumPossible` function.
 
-I hope this breakdown helps clarify how the `sumPossible` function is working. If you have any further questions about specific lines or concepts, feel free to ask!
+Here's a pythonTutor visualization of the `sumPossible` function:
+
+https://pythontutor.com/render.html#code=const%20sumPossible%20%3D%20%28amount,%20numbers%29%20%3D%3E%20%7B%0A%20%20%20%20//%20Initialize%20the%20dp%20array%20with%20false%20and%20set%20dp%5B0%5D%20to%20true%0A%20%20%20%20const%20dp%20%3D%20Array%28amount%20%2B%201%29.fill%28false%29%3B%0A%20%20%20%20dp%5B0%5D%20%3D%20true%3B%0A%20%20%0A%20%20%20%20//%20Go%20through%20each%20number%0A%20%20%20%20for%20%28let%20num%20of%20numbers%29%20%7B%0A%20%20%20%20%20%20//%20Update%20the%20dp%20table%20for%20each%20amount%20from%20num%20to%20amount%0A%20%20%20%20%20%20for%20%28let%20i%20%3D%20num%3B%20i%20%3C%3D%20amount%3B%20i%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28dp%5Bi%20-%20num%5D%29%20dp%5Bi%5D%20%3D%20true%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%0A%20%20%20%20return%20dp%5Bamount%5D%3B%0A%20%20%7D%3B%0A%20%20%0A%20%20sumPossible%288,%20%5B5,%2012,%204%5D%29&cumulative=false&curInstr=47&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=js&rawInputLstJSON=%5B%5D&textReferences=false
