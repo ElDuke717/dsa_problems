@@ -102,3 +102,47 @@ The remaining `console.log` statements are further test cases for the `sumPossib
 Here's a pythonTutor visualization of the `sumPossible` function:
 
 https://pythontutor.com/render.html#code=const%20sumPossible%20%3D%20%28amount,%20numbers%29%20%3D%3E%20%7B%0A%20%20%20%20//%20Initialize%20the%20dp%20array%20with%20false%20and%20set%20dp%5B0%5D%20to%20true%0A%20%20%20%20const%20dp%20%3D%20Array%28amount%20%2B%201%29.fill%28false%29%3B%0A%20%20%20%20dp%5B0%5D%20%3D%20true%3B%0A%20%20%0A%20%20%20%20//%20Go%20through%20each%20number%0A%20%20%20%20for%20%28let%20num%20of%20numbers%29%20%7B%0A%20%20%20%20%20%20//%20Update%20the%20dp%20table%20for%20each%20amount%20from%20num%20to%20amount%0A%20%20%20%20%20%20for%20%28let%20i%20%3D%20num%3B%20i%20%3C%3D%20amount%3B%20i%2B%2B%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28dp%5Bi%20-%20num%5D%29%20dp%5Bi%5D%20%3D%20true%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%0A%20%20%20%20return%20dp%5Bamount%5D%3B%0A%20%20%7D%3B%0A%20%20%0A%20%20sumPossible%288,%20%5B5,%2012,%204%5D%29&cumulative=false&curInstr=47&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=js&rawInputLstJSON=%5B%5D&textReferences=false
+
+# More Explanation
+
+The `sumPossible` algorithm is a dynamic programming approach to solve the subset sum problem, which determines if there's a subset of the given `numbers` that can sum up to `amount`. Here's the step-by-step explanation:
+
+1. **Initialization**: Create a boolean array (`dp`) with `amount + 1` elements, all initialized to `false`, except for `dp[0]`, which is set to `true`. This indicates that it's possible to reach a sum of 0 (base case).
+
+2. **Iterating Through Numbers**: Go through each number in the `numbers` array. Each `num` represents a potential value to be added to a subset to reach the desired `amount`.
+
+3. **Dynamic Table Update**: For each `num`, iterate from `num` to `amount` and update the `dp` table. If `dp[i - num]` is `true`, it means that there's a subset that sums to `i - num`. Adding `num` to this subset would sum to `i`, so set `dp[i]` to `true`.
+
+4. **Final Check**: After filling out the `dp` table, check the value of `dp[amount]`. If it's `true`, it means that it's possible to form the `amount` with a subset of the given numbers. Otherwise, it's not possible.
+
+The function returns the boolean result for `dp[amount]`, indicating whether or not the `amount` can be formed from the `numbers`.
+
+
+
+Let's visualize steps 2 and 3 of the algorithm with an example:
+
+Assume `amount = 5` and `numbers = [1, 3]`.
+
+1. Initialize `dp` array: `[true, false, false, false, false, false]` (indices 0 to 5).
+
+2. First iteration with `num = 1`:
+
+   - `i = 1`: `dp[1 - 1]` is `true`, so set `dp[1]` to `true`.
+   - `i = 2`: `dp[2 - 1]` is `true`, so set `dp[2]` to `true`.
+   - `i = 3`: `dp[3 - 1]` is `true`, so set `dp[3]` to `true`.
+   - ...
+   - `i = 5`: `dp[5 - 1]` is `true`, so set `dp[5]` to `true`.
+
+   After first iteration: `[true, true, true, true, true, true]`
+
+3. Second iteration with `num = 3`:
+
+   - `i = 3`: `dp[3 - 3]` is `true`, so `dp[3]` remains `true`.
+   - `i = 4`: `dp[4 - 3]` is `true`, so set `dp[4]` to `true`.
+   - `i = 5`: `dp[5 - 3]` is `true`, so `dp[5]` remains `true`.
+
+   After second iteration: `[true, true, true, true, true, true]`
+
+At each iteration, we're checking if `dp[i - num]` is `true`. If it is, we can reach `i` by adding `num` to whatever combination got us to `i - num`. The `dp` array keeps track of which sums are possible with the numbers we've seen so far.
+
+By the end, `dp[5]` is `true`, meaning we can sum to 5 with some combination of 1s and 3s. In this case, `[1, 1, 1, 1, 1]`, `[1, 1, 3]`, and `[3, 1, 1]` all work.
