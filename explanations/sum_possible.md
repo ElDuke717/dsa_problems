@@ -1,6 +1,8 @@
 # Sumpossible
 
-To solve this problem, you can use a dynamic programming approach. This is often used for problems where you have to make a series of decisions that depend on each other, like whether to include a number in the sum. The approach for `sumPossible` is to create a table that keeps track of whether it's possible to get to a certain amount using any combination of the numbers you have.
+>Write a function sumPossible that takes in an amount and an array of positive numbers. The function should return a boolean indicating whether or not it is possible to create the amount by summing numbers of the array. You may reuse numbers of the array as many times as necessary.
+
+You may assume that the target amount is non-negative.To solve this problem, you can use a dynamic programming approach. This is often used for problems where you have to make a series of decisions that depend on each other, like whether to include a number in the sum. The approach for `sumPossible` is to create a table that keeps track of whether it's possible to get to a certain amount using any combination of the numbers you have.
 
 Here's the idea:
 
@@ -117,8 +119,6 @@ The `sumPossible` algorithm is a dynamic programming approach to solve the subse
 
 The function returns the boolean result for `dp[amount]`, indicating whether or not the `amount` can be formed from the `numbers`.
 
-
-
 Let's visualize steps 2 and 3 of the algorithm with an example:
 
 Assume `amount = 5` and `numbers = [1, 3]`.
@@ -146,3 +146,74 @@ Assume `amount = 5` and `numbers = [1, 3]`.
 At each iteration, we're checking if `dp[i - num]` is `true`. If it is, we can reach `i` by adding `num` to whatever combination got us to `i - num`. The `dp` array keeps track of which sums are possible with the numbers we've seen so far.
 
 By the end, `dp[5]` is `true`, meaning we can sum to 5 with some combination of 1s and 3s. In this case, `[1, 1, 1, 1, 1]`, `[1, 1, 3]`, and `[3, 1, 1]` all work.
+
+
+Certainly! This algorithm is an example of dynamic programming, specifically used to solve the subset sum problem. The idea is to determine whether it's possible to sum to a specific target amount (`amount`) using any combination of the numbers in the `numbers` array. Here's a breakdown of each part of the code:
+
+1. **Initialization of `dp` Array**:
+   - `const dp = Array(amount + 1).fill(false);`
+   - This line creates an array `dp` of length `amount + 1` and initializes all elements to `false`. This array will keep track of which sums are possible up to the `amount`.
+   - `dp[0] = true;`
+   - Setting `dp[0]` to `true` represents that a sum of 0 is always possible (by selecting no numbers).
+
+2. **Outer Loop - Iterating Over Numbers**:
+   - `for (let num of numbers) { ... }`
+   - This loop iterates through each number in the `numbers` array. Each number is considered one at a time to update the `dp` array.
+
+3. **Inner Loop - Dynamic Programming Table Update**:
+   - `for (let i = num; i <= amount; i++) { ... }`
+   - For each number, this inner loop iterates from `num` to `amount`. The purpose is to update the `dp` array for each sum from `num` to `amount`.
+   - `if (dp[i - num]) dp[i] = true;`
+   - Here, the algorithm checks if the current number (`num`) can be added to any of the previously computed sums (`i - num`) to make a new sum (`i`). If `dp[i - num]` is `true`, it means there's a combination of numbers that adds up to `i - num`. Adding `num` to this would give us `i`, so `dp[i]` is set to `true`.
+
+4. **Return Statement**:
+   - `return dp[amount];`
+   - Finally, the function returns the value of `dp[amount]`. If it's `true`, it means there's a combination of numbers in the array that adds up to the target `amount`.
+
+Examples:
+- `sumPossible(8, [5, 12, 4])`: The algorithm finds that 4 + 4 = 8, so it returns `true`.
+- `sumPossible(15, [6, 2, 10, 19])`: No combination of these numbers adds up to 15, so it returns `false`.
+- `sumPossible(0, [])`: Since you can make 0 by choosing no numbers, it returns `true`.
+- `sumPossible(12, [12])`: 12 is directly in the array, so it returns `true`.
+- `sumPossible(13, [3, 5])`: The combination 3 + 5 + 5 = 13 is possible, so it returns `true`.
+
+The nested loop might seem complex at first, but it's essentially building up a table (`dp`) of which sums are possible with the given numbers, step by step.
+
+Absolutely, visualizing the dynamic programming process can greatly aid in understanding. Let's illustrate this with an example, using the input `sumPossible(8, [5, 4])`.
+
+1. **Initialization**: 
+   - `dp = [true, false, false, false, false, false, false, false, false]` 
+   - (indices: 0 to 8)
+
+2. **First Number (5)**:
+   - We start the inner loop with `num = 5`.
+   - Iterate `i` from 5 to 8 (the target amount).
+   - Update `dp[i]` if `dp[i - 5]` is `true`.
+
+    Steps:
+    - `i = 5`: `dp[5 - 5]` is `true` (since `dp[0]` is `true`), so set `dp[5]` to `true`.
+    - `i = 6`: `dp[6 - 5]` is `false`, so `dp[6]` remains `false`.
+    - `i = 7`: `dp[7 - 5]` is `false`, so `dp[7]` remains `false`.
+    - `i = 8`: `dp[8 - 5]` is `false`, so `dp[8]` remains `false`.
+
+    `dp` after first number: `[true, false, false, false, false, true, false, false, false]`
+
+3. **Second Number (4)**:
+   - Now with `num = 4`.
+   - Iterate `i` from 4 to 8.
+   - Update `dp[i]` if `dp[i - 4]` is `true`.
+
+    Steps:
+    - `i = 4`: `dp[4 - 4]` is `true`, so set `dp[4]` to `true`.
+    - `i = 5`: `dp[5 - 4]` is `false`, so `dp[5]` remains `true`.
+    - `i = 6`: `dp[6 - 4]` is `true`, so set `dp[6]` to `true`.
+    - `i = 7`: `dp[7 - 4]` is `false`, so `dp[7]` remains `false`.
+    - `i = 8`: `dp[8 - 4]` is `true`, so set `dp[8]` to `true`.
+
+    `dp` after second number: `[true, false, false, false, true, true, true, false, true]`
+
+4. **Result**:
+   - The final `dp` array shows that sums of 0, 4, 5, 6, and 8 are possible with the numbers [5, 4].
+   - Since `dp[8]` is `true`, the function returns `true`.
+
+Here, the key to understanding is how each number in the array potentially changes the `dp` array, gradually building up to the target sum. The `dp` array tracks which sums are achievable with the numbers seen so far.

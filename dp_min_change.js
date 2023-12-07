@@ -37,5 +37,12 @@ const minChange = (amount, coins) => {
 
 console.log(minChange(8, [1, 5, 4, 12])); // -> 2, because 4+4 is the minimum coins possible
 console.log(minChange(13, [1, 9, 5, 14, 30])); // -> 5
+console.log(minChange(23, [2, 5, 7])); // -> 4
+console.log(minChange(102, [1, 5, 10, 25])); // -> 6
+console.log(minChange(200, [1, 5, 10, 25])); // -> 8
+console.log(minChange(2017, [4, 2, 10])); // -> -1
+console.log(minChange(271, [10, 8, 265, 24])); // -> -1
+console.log(minChange(0, [4, 2, 10])); // -> 0
+console.log(minChange(0, [])); // -> 0
 
 
